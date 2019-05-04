@@ -9,8 +9,8 @@
           "optionalDependencies": false, 
           "peerDependencies": false
         }
-      ]
-
+      ],
+      "linebreak-style": ["error", "windows"]
   },
   "parserOptions": {
     "ecmaVersion": 6
