@@ -16,6 +16,8 @@ app.use(bodyParser.json());
 
 // Routing middlewares
 app.use('/', routes.index);
+app.use('/api/v1/cases', routes.cases);
+app.use('/api/v1/polices', routes.polices);
 
 app.listen(8080, () => {
   console.log('Listening on port 8080');

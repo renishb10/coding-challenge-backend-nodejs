@@ -1,5 +1,6 @@
 /* eslint-disable global-require */
 module.exports = {
   index: require('./index.route'),
-  // complaint: require('./complaint')
+  cases: require('./cases'),
+  polices: require('./polices'),
 };
