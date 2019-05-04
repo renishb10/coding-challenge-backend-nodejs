@@ -5,6 +5,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 // Custom dependencies
+const config = require('./server/config');
 const routes = require('./server/routes');
 
 // Express app initiate
@@ -16,9 +17,9 @@ app.use(bodyParser.json());
 
 // Routing middlewares
 app.use('/', routes.index);
-app.use('/api/v1/cases', routes.cases);
-app.use('/api/v1/polices', routes.polices);
+app.use(`${config.base_url_path.v1}cases`, routes.cases);
+app.use(`${config.base_url_path.v1}polices`, routes.polices);
 
-app.listen(8080, () => {
-  console.log('Listening on port 8080');
+app.listen(config.port, () => {
+  console.log(`Listening on port ${config.port}`);
 });
