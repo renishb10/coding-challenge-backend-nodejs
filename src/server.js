@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 // Custom dependencies
 const config = require('./server/config');
 const routes = require('./server/routes');
+const sequelize = require('./server/data/db');
 
 // Express app initiate
 const app = express();
