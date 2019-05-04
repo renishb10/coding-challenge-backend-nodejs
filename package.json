@@ -1,0 +1,54 @@
+{
+  "name": "stolen-bikes-api",
+  "version": "1.0.0",
+  "description": "Backend API service for Find-MY-STOLEN-BIKE project",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node src/server.js",
+    "start": "node src/server.js",
+    "lint": "eslint .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/renishb10/coding-challenge-backend-nodejs.git"
+  },
+  "keywords": [
+    "node.js",
+    "stolenbike",
+    "renish",
+    "berlin",
+    "police"
+  ],
+  "author": "Renish Bhaskaran",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/renishb10/coding-challenge-backend-nodejs/issues"
+  },
+  "homepage": "https://github.com/renishb10/coding-challenge-backend-nodejs#readme",
+  "dependencies": {
+    "argv-parser": "^0.1.4",
+    "async": "^2.6.0",
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.2",
+    "boom": "^7.1.1",
+    "cors": "^2.8.4",
+    "dotenv": "^4.0.0",
+    "express": "^4.12.3",
+    "express-routes-versioning": "^1.0.1",
+    "express-validator": "^4.3.0",
+    "helmet": "^3.9.0",
+    "jsonwebtoken": "^8.1.0",
+    "lodash": "^4.17.11",
+    "moment": "^2.20.1",
+    "moment-timezone": "^0.5.21",
+    "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "eslint": "^4.14.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "mocha": "^4.1.0",
+    "pre-commit": "^1.2.2"
+  }
+}
