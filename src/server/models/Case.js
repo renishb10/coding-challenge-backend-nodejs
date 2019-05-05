@@ -1,23 +1,17 @@
 // Dependencies
 const Sequelize = require('sequelize');
+const uuid = require('uuid/v4');
 
 // DB Custom instance
 const mySequelize = require('../data/db');
+const { Status, Owner, PoliceOfficer } = require('./index');
 
 const Case = mySequelize.define('case', {
   // attributes
   id: {
     primaryKey: true,
-    type: Sequelize.UUIDV4,
-    defaultValue: Sequelize.UUIDV4,
-    allowNull: false,
-  },
-  ownerFirstName: {
-    type: Sequelize.STRING(100),
-    allowNull: false,
-  },
-  ownerLastName: {
-    type: Sequelize.STRING(100),
+    type: Sequelize.UUID,
+    defaultValue: uuid(),
     allowNull: false,
   },
   stolenObject: {
@@ -55,5 +49,10 @@ const Case = mySequelize.define('case', {
 }, {
   // Options if any later
 });
+
+// Relationships
+Case.belongsTo(Owner, { foreignKey: { allowNull: false }, onDelete: 'CASCADE' });
+Case.belongsTo(Status, { foreignKey: { defaultValue: 1 }, onDelete: 'CASCADE' });
+Case.belongsTo(PoliceOfficer);
 
 module.exports = Case;

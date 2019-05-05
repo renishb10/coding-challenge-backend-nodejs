@@ -18,4 +18,15 @@ mySequelize
     console.error(`Unable to connect to the database - ${config.db.host} : ${config.db.name}`, err);
   });
 
+mySequelize
+  .sync({
+    force: true
+  })
+  .then(() => {
+
+  })
+  .catch((e) => {
+    console.log(e.message);
+  });
+
 module.exports = mySequelize;
