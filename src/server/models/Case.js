@@ -6,7 +6,7 @@ const uuid = require('uuid/v4');
 const mySequelize = require('../data/db');
 const Owner = require('./Owner');
 const Status = require('./Status');
-const PoliceOfficer = require('./PoliceOfficer');
+const Police = require('./Police');
 
 const Case = mySequelize.define('case', {
   // attributes
@@ -55,6 +55,6 @@ const Case = mySequelize.define('case', {
 // Relationships
 Case.belongsTo(Owner, { foreignKey: { allowNull: false }, onDelete: 'CASCADE' });
 Case.belongsTo(Status, { foreignKey: { defaultValue: 1 }, onDelete: 'CASCADE' });
-Case.belongsTo(PoliceOfficer);
+Case.belongsTo(Police, { as: 'police' }); // Bug with Sequelize, by default it create column as polouseId instead of policeId
 
 module.exports = Case;

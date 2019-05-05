@@ -6,7 +6,7 @@ const uuid = require('uuid/v4');
 const mySequelize = require('../data/db');
 
 // Sequelize has naming problem (Eg: When given Police the foreign key is PolouseId), so going for police_officer
-const PoliceOfficer = mySequelize.define('police_officer', {
+const Police = mySequelize.define('police', {
   // attributes
   id: {
     primaryKey: true,
@@ -68,4 +68,4 @@ const PoliceOfficer = mySequelize.define('police_officer', {
   // Options if any later
 });
 
-module.exports = PoliceOfficer;
+module.exports = Police;

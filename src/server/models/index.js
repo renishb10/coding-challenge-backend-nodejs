@@ -3,7 +3,7 @@
 module.exports = {
   Case: require('./Case'),
   Owner: require('./Owner'),
-  PoliceOfficer: require('./PoliceOfficer'),
+  Police: require('./Police'),
   Status: require('./Status'),
 };
 
