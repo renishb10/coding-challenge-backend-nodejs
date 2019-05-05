@@ -4,8 +4,8 @@
   "description": "Backend API service for Find-MY-STOLEN-BIKE project",
   "main": "index.js",
   "scripts": {
-    "dev": "node src/server.js",
-    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "start": "nodemon src/server.js",
     "lint": "eslint .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -3,7 +3,9 @@
 // Module dependencies
 const express = require('express');
 const bodyParser = require('body-parser');
+const helmet = require('helmet');
 const volleyball = require('volleyball');
+const cors = require('cors');
 
 // Custom dependencies
 const config = require('./server/config');
@@ -14,9 +16,11 @@ const mySequelize = require('./server/data/db');
 const app = express();
 
 // Default middlewares
-app.use(volleyball);
+app.use(helmet()); // Adds security headers
+app.use(volleyball); // Logs http req/res
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cors());
 
 // Routing middlewares
 app.use('/', routes.index);
@@ -26,7 +30,7 @@ app.use(`${config.base_url_path.v1}polices`, routes.polices);
 // Initiate DB stuffs and run the server
 mySequelize
   .sync({
-    force: true,
+    // force: true,
   })
   .then(() => {
     app.listen(config.port, () => {

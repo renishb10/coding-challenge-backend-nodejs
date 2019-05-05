@@ -33,6 +33,12 @@ const Owner = mySequelize.define('owner', {
       },
     },
   },
+  // fullName: {
+  //   type: Sequelize.VIRTUAL,
+  //   get: function() {
+  //     return (this.get('firstName') - this.get('lastName'));
+  //   },
+  // },
   createdAt: {
     type: Sequelize.DATE,
     allowNull: false,
@@ -42,7 +48,10 @@ const Owner = mySequelize.define('owner', {
     allowNull: false,
   },
 }, {
-  // Options if any later
+  // Options
+  // getterMethods: {
+  //   fullName: function() { `${this.firstName} ${this.lastName}`},
+  // },
 });
 
 module.exports = Owner;
