@@ -1,0 +1,78 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"version": "1.0.0",
+		"title": "Find By Bike API Service",
+		"description": "API documentation for Find By Bike Service (Coding Challenge)\n"
+	},
+	"host": "localhost:8080",
+	"basePath": "/api/v1",
+	"tags": [
+		{
+			"name": "case",
+			"description": "Everything about case"
+		},
+		{
+			"name": "police",
+			"description": "Everything about police"
+		},
+		{
+			"name": "owner",
+			"description": "Everything about owner"
+		}
+	],
+	"schemes": [
+		"http"
+	],
+	"consumes": [
+		"application/json"
+	],
+	"produces": [
+		"application/json"
+	],
+	"paths": {
+		"/cases": {
+			"get": {
+				"tags": [
+					"case"
+				],
+				"description": "Returns all the cases",
+				"responses": {
+					"200": {
+						"description": "Success"
+					},
+					"default": {
+						"description": "Error"
+					}
+				}
+			}
+		}
+	},
+	"definitions": {
+		"Case": {
+			"type": "object",
+			"properties": {
+				"caseId": {
+					"type": "uuid",
+					"format": "uuid"
+				},
+				"firstName": {
+					"type": "string",
+					"format": "string"
+				},
+				"lastName": {
+					"type": "string",
+					"format": "string"
+				},
+				"bike": {
+					"type": "string",
+					"format": "string"
+				},
+				"etc": {
+					"type": "string",
+					"format": "string"
+				}
+			}
+		}
+	}
+}
