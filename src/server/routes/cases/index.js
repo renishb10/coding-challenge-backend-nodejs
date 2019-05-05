@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Case } = require('../../models');
+const Case = require('../../models/Case');
 
 ///////////////////////////////////////////////////////////////
 /// GET all cases (with filters)

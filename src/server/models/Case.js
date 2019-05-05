@@ -4,7 +4,9 @@ const uuid = require('uuid/v4');
 
 // DB Custom instance
 const mySequelize = require('../data/db');
-const { Status, Owner, PoliceOfficer } = require('./index');
+const Owner = require('./Owner');
+const Status = require('./Status');
+const PoliceOfficer = require('./PoliceOfficer');
 
 const Case = mySequelize.define('case', {
   // attributes
