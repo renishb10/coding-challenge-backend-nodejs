@@ -25,8 +25,8 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // Routing middlewares
-// app.use('/', routes.index);
-app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument, { explorer: true }));
+app.use('/', routes.index);
+app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument, { explorer: true }));
 app.use(`${config.base_url_path.v1}cases`, routes.cases);
 app.use(`${config.base_url_path.v1}polices`, routes.polices);
 
@@ -43,3 +43,6 @@ mySequelize
   .catch((e) => {
     console.log(e.message);
   });
+
+// Exporting it for Chai test
+module.exports = app;
