@@ -1,0 +1,18 @@
+{
+  "extends": "airbnb-base",
+  "root": true,
+  "rules": {
+    "import/no-extraneous-dependencies": 
+      ["error", 
+        {
+          "devDependencies": false, 
+          "optionalDependencies": false, 
+          "peerDependencies": false
+        }
+      ],
+      "linebreak-style": ["error", "windows"]
+  },
+  "parserOptions": {
+    "ecmaVersion": 6
+  }
+}
