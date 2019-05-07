@@ -7,7 +7,7 @@
     "dev": "nodemon src/server.js",
     "start": "nodemon src/server.js",
     "lint": "eslint .",
-    "test": "mocha --recursive"
+    "test": "mocha --recursive -b || exit 1"
   },
   "repository": {
     "type": "git",

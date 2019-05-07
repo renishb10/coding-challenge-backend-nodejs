@@ -30,6 +30,16 @@ app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument, { explorer
 app.use(`${config.base_url_path.v1}cases`, routes.cases);
 app.use(`${config.base_url_path.v1}polices`, routes.polices);
 
+// Error middleware
+app.use((err, req, res, next) => {
+  console.log(err.status)
+  res.status(err.status || 500);
+  res.send({
+    message: err.message,
+    error: err,
+  });
+});
+
 // Initiate DB stuffs and run the server
 mySequelize
   .sync({
