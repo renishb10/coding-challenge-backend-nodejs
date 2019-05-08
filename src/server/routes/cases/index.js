@@ -1,19 +1,17 @@
+// Dependencies
 const router = require('express').Router();
 const Case = require('../../models/Case');
-const Owner = require('../../models/Owner');
+
+// Custom dependencies
+const { getAllCases, getAllCaseById, createCase } = require('./controller');
 
 ///////////////////////////////////////////////////////////////
 /// GET all cases (with filters)
 ///////////////////////////////////////////////////////////////
 router.get('/', async (req, res, next) => {
     try {
-        Case.findAll({ include: [Owner]})
-          .then((data) => {
-            res.json(data);
-          })
-          .catch((error) => {
-            res.json({ message: error.message })
-          });
+        const cases = await getAllCases();
+        return res.json(cases);
     } catch (e) {
         console.log(e.message);
         res.status(500).send({ message: e.message });
