@@ -6,7 +6,7 @@ const config = require('../config');
 const mySequelize = new Sequelize(config.db.name, config.db.username, config.db.password, {
   host: config.db.host,
   dialect: config.db.type,
-  logging: false,
+  logging: true,
 });
 
 // Print DB status to console

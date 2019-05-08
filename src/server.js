@@ -29,6 +29,7 @@ app.use('/', routes.index);
 app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument, { explorer: true }));
 app.use(`${config.base_url_path.v1}cases`, routes.cases);
 app.use(`${config.base_url_path.v1}polices`, routes.polices);
+app.use(`${config.base_url_path.v1}statuses`, routes.statuses);
 
 // Error middleware
 app.use((err, req, res, next) => {
