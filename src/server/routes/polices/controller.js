@@ -12,10 +12,13 @@ const getAllPolice = async () => {
 };
 
 const getPoliceByStatus = async (_isBusy = false) => {
-  return Police.find({
+  return Police.findAll({
       where: {
         isBusy: _isBusy
-      }
+      },
+      order: [
+        ['createdAt', 'ASC']
+      ]
     })
     .then((data) => {
       return data;

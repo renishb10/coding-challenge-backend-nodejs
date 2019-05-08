@@ -1,3 +1,10 @@
 {
-    "git.ignoreLimitWarning": true
-}
+    "editor.formatOnSave": true,
+    "prettier.singleQuote": true,
+    "prettier.eslintIntegration": true,
+    "prettier.tabWidth": 2,
+    "importCost.smallPackageSize": 50,
+    "importCost.mediumPackageSize": 100,
+    "git.autofetch": true
+  }
+  

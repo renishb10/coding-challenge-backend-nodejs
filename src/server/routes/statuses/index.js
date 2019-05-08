@@ -5,6 +5,9 @@ const _ = require('lodash');
 // Custom dependencies
 const { createNewStatus, getStatuses, updateStatus, deleteStatus } = require('./controller');
 
+///////////////////////////////////////////////////////////////
+/// GET all statuses
+///////////////////////////////////////////////////////////////
 router.get('/', async (req, res, next) => {
     try {
         const statuses = await getStatuses();
@@ -15,6 +18,9 @@ router.get('/', async (req, res, next) => {
     }
 });
 
+///////////////////////////////////////////////////////////////
+/// POST a status
+///////////////////////////////////////////////////////////////
 router.post('/', async (req, res, next) => {
     try {
         const statuses = await createNewStatus(req.body);
@@ -25,6 +31,9 @@ router.post('/', async (req, res, next) => {
     }
 });
 
+///////////////////////////////////////////////////////////////
+/// UPDATE a status
+///////////////////////////////////////////////////////////////
 router.put('/:id', async (req, res, next) => {
     try {
         const _statusId = req.params.id;
@@ -40,6 +49,9 @@ router.put('/:id', async (req, res, next) => {
     }
 });
 
+///////////////////////////////////////////////////////////////
+/// DELETE a status
+///////////////////////////////////////////////////////////////
 router.delete('/:id', async (req, res, next) => {
     try {
         const _statusId = req.params.id;

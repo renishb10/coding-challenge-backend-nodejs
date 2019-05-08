@@ -1,12 +1,12 @@
 const Status = require('../../models/Status');
 const _ = require('lodash');
 
-const createNewStatus = async (_statusObj) => {
+const createNewStatus = async _statusObj => {
   return Status.create(_statusObj)
-    .then((data) => {
+    .then(data => {
       return data;
     })
-    .catch((error) => {
+    .catch(error => {
       console.log(error.message);
       throw error;
     });
@@ -14,30 +14,29 @@ const createNewStatus = async (_statusObj) => {
 
 const getStatuses = async () => {
   return Status.findAll()
-    .then((data) => {
+    .then(data => {
       return data;
     })
-    .catch((error) => {
+    .catch(error => {
       console.log(error.message);
       throw error;
     });
 };
 
-const deleteStatus = async (_statusId) => {
+const deleteStatus = async _statusId => {
   return Status.findOne({ where: { id: _statusId } })
-    .then((data) => {
-      if (_.isEmpty(data))
-        throw error;
-      
+    .then(data => {
+      if (_.isEmpty(data)) throw error;
+
       Status.destroy({ where: { id: data.id } })
-        .then((data) => {
-            return data;
+        .then(data => {
+          return data;
         })
-        .catch((error) => {
-            throw error;
-        })
+        .catch(error => {
+          throw error;
+        });
     })
-    .catch((error) => {
+    .catch(error => {
       console.log(error.message);
       throw error;
     });
@@ -45,21 +44,21 @@ const deleteStatus = async (_statusId) => {
 
 const updateStatus = async (_statusId, _newStatusObj) => {
   return Status.findOne({ where: { id: _statusId } })
-    .then((data) => {
-      if (_.isEmpty(data))
-        throw error;
-    
-      data.update({
-          name: _newStatusObj.name
-      })
-        .then((data) => {
-            return data;
+    .then(data => {
+      if (_.isEmpty(data)) throw error;
+
+      data
+        .update({
+          name: _newStatusObj.name,
         })
-        .catch((error) => {
-            throw error;
+        .then(data => {
+          return data;
         })
+        .catch(error => {
+          throw error;
+        });
     })
-    .catch((error) => {
+    .catch(error => {
       console.log(error.message);
       throw error;
     });
