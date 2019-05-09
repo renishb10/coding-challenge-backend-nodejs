@@ -6,12 +6,14 @@ const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const volleyball = require('volleyball');
 const cors = require('cors');
+const Sentry = require('@sentry/node');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
 
 // Custom dependencies
 const config = require('./server/config');
 const logger = require('./server/helpers/logger');
+const errorHandler = require('./server/middlewares/errorHandler');
 const routes = require('./server/routes');
 const mySequelize = require('./server/data/db');
 
@@ -20,6 +22,9 @@ const app = express();
 
 // Logging assigned globally
 global.logger = logger;
+
+// The request handler must be the first middleware on the app
+app.use(Sentry.Handlers.requestHandler());
 
 // Default middlewares
 app.use(helmet()); // Adds security headers
@@ -40,14 +45,7 @@ app.use(`${config.base_url_path.v1}polices`, routes.polices);
 app.use(`${config.base_url_path.v1}statuses`, routes.statuses);
 
 // Error middleware
-app.use((err, req, res, next) => {
-  console.log(err.status);
-  res.status(err.status || 500);
-  res.send({
-    message: err.message,
-    error: err,
-  });
-});
+app.use(errorHandler);
 
 // Initiate DB stuffs and run the server
 mySequelize
@@ -56,11 +54,11 @@ mySequelize
   })
   .then(() => {
     app.listen(config.port, () => {
-      console.log(`Listening on port ${config.port}`);
+      logger.info(`Listening on port ${config.port}`);
     });
   })
   .catch(e => {
-    console.log(e.message);
+    logger.error(e.message);
   });
 
 // Exporting it for Chai test

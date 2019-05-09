@@ -1,4 +1,10 @@
 const { createLogger, format, transports } = require('winston');
+const Sentry = require('winston-sentry-log');
+
+const sentryOptions = {
+  dsn: 'https://fff4cdd7b0794a34879f988f865e6c99@sentry.io/1452354',
+  level: 'error',
+};
 
 const logger = createLogger({
   level: 'debug',
@@ -24,7 +30,13 @@ const logger = createLogger({
         ),
       ),
     }),
+    new Sentry(sentryOptions),
   ],
 });
 
 module.exports = logger;
+
+logger.info('1123123');
+logger.debug('1123123');
+logger.warn('1123123');
+logger.error('1123123');

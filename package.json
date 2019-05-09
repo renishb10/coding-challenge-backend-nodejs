@@ -28,6 +28,7 @@
   },
   "homepage": "https://github.com/renishb10/coding-challenge-backend-nodejs#readme",
   "dependencies": {
+    "@sentry/node": "^5.2.0",
     "argv-parser": "^0.1.4",
     "async": "^2.6.0",
     "axios": "^0.18.0",
@@ -50,7 +51,8 @@
     "swagger-ui-express": "^4.0.2",
     "uuid": "^3.3.2",
     "volleyball": "^1.5.1",
-    "winston": "^3.2.1"
+    "winston": "^3.2.1",
+    "winston-sentry-log": "^1.0.11"
   },
   "devDependencies": {
     "chai-http": "^4.3.0",

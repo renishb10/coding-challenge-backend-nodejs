@@ -25,6 +25,9 @@ const config = {
     host: process.env.DB_HOST,
     type: process.env.DB_TYPE,
   },
+  sentry: {
+    dsn: process.env.SENTRY_DSN,
+  },
 };
 
 module.exports = config;

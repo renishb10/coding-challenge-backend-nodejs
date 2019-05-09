@@ -19,10 +19,11 @@ const { caseStatuses } = require('../../helpers/contants');
 router.get('/', async (req, res, next) => {
   try {
     const cases = await getAllCases();
+    throw new Error('Error from CASE');
     return res.json(cases);
   } catch (e) {
-    logger.error(e.message);
-    res.status(500).send({ message: e.message });
+    e.status = 400;
+    next(e);
   }
 });
 
