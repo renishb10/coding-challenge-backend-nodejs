@@ -11,11 +11,15 @@ const swaggerDocument = require('./swagger.json');
 
 // Custom dependencies
 const config = require('./server/config');
+const logger = require('./server/helpers/logger');
 const routes = require('./server/routes');
 const mySequelize = require('./server/data/db');
 
 // Express app initiate
 const app = express();
+
+// Logging assigned globally
+global.logger = logger;
 
 // Default middlewares
 app.use(helmet()); // Adds security headers
@@ -26,14 +30,18 @@ app.use(cors());
 
 // Routing middlewares
 app.use('/', routes.index);
-app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument, { explorer: true }));
+app.use(
+  '/swagger',
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerDocument, { explorer: true }),
+);
 app.use(`${config.base_url_path.v1}cases`, routes.cases);
 app.use(`${config.base_url_path.v1}polices`, routes.polices);
 app.use(`${config.base_url_path.v1}statuses`, routes.statuses);
 
 // Error middleware
 app.use((err, req, res, next) => {
-  console.log(err.status)
+  console.log(err.status);
   res.status(err.status || 500);
   res.send({
     message: err.message,
@@ -51,7 +59,7 @@ mySequelize
       console.log(`Listening on port ${config.port}`);
     });
   })
-  .catch((e) => {
+  .catch(e => {
     console.log(e.message);
   });
 

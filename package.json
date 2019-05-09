@@ -54,11 +54,13 @@
   },
   "devDependencies": {
     "chai-http": "^4.3.0",
-    "eslint": "^4.14.0",
+    "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-prettier": "^3.0.1",
     "mocha": "^4.1.0",
     "nyc": "^14.1.0",
-    "pre-commit": "^1.2.2"
+    "pre-commit": "^1.2.2",
+    "prettier": "^1.17.0"
   }
 }
