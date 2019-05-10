@@ -53,8 +53,8 @@ mySequelize
     // force: true,
   })
   .then(() => {
-    app.listen(config.port, () => {
-      logger.info(`Listening on port ${config.port}`);
+    app.listen(process.env.PORT || config.port, () => {
+      logger.info(`Listening on port ${process.env.PORT || config.port}`);
     });
   })
   .catch(e => {
