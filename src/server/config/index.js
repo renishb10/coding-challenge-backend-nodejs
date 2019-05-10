@@ -24,6 +24,7 @@ const config = {
     password: process.env.DB_PASSWORD,
     host: process.env.DB_HOST,
     type: process.env.DB_TYPE,
+    ssl: process.env.DB_SSL == 'true' ? true : false,
   },
   sentry: {
     dsn: process.env.SENTRY_DSN,
