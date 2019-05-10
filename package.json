@@ -7,8 +7,8 @@
     "dev": "nodemon src/server.js",
     "start": "nodemon src/server.js",
     "lint": "eslint .",
-    "test": "npm-run-all --parallel build:watch cross-env DOTENV_FILE=.env.test nodemon -e ts --exec mocha build/**/unit/**/*.spec.js --recursive --inspect --watch --reporter spec --bail",
-    "test-coverage": "nyc --reporter=text mocha"
+    "test": "mocha --recursive",
+    "test-coverage": "nyc npm run test --exit"
   },
   "repository": {
     "type": "git",
@@ -41,6 +41,7 @@
     "express-routes-versioning": "^1.0.1",
     "express-validator": "^4.3.0",
     "helmet": "^3.9.0",
+    "joi": "^14.3.1",
     "jsonwebtoken": "^8.1.0",
     "lodash": "^4.17.11",
     "moment": "^2.20.1",

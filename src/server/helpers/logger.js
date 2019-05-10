@@ -35,8 +35,3 @@ const logger = createLogger({
 });
 
 module.exports = logger;
-
-logger.info('1123123');
-logger.debug('1123123');
-logger.warn('1123123');
-logger.error('1123123');
