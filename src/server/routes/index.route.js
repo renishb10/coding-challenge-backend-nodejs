@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
 router.get('/', (req, res) => {
-  res.json("Stolen Bike API Service");
+  res.sendFile(__dirname + '/public');
 });
 
 module.exports = router;
