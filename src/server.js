@@ -46,6 +46,12 @@ app.use(
   swaggerUi.setup(swaggerDocument, { explorer: true }),
 );
 
+// Coding Challenge Documentation
+app.get('/doc', (req, res) => {
+  var file = __dirname + '/berlin_stolen_bikes.pdf';
+  res.download(file);
+});
+
 // To relevant routes
 app.use(`${config.base_url_path.v1}cases`, routes.cases);
 app.use(`${config.base_url_path.v1}polices`, routes.polices);
