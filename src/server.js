@@ -47,10 +47,10 @@ app.use(`${config.base_url_path.v1}statuses`, routes.statuses);
 // Error middleware
 app.use(errorHandler);
 
-// Initiate DB stuffs and run the server
+// Initiate DB and run the server
 mySequelize
   .sync({
-    // force: true,
+    force: true,
   })
   .then(() => {
     app.listen(process.env.PORT || config.port, () => {
