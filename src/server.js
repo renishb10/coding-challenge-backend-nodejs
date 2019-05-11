@@ -63,7 +63,7 @@ app.use(errorHandler);
 // Initiate DB and run the server
 mySequelize
   .sync({
-    force: true,
+    force: false,
   })
   .then(() => {
     app.listen(process.env.PORT || config.port, () => {

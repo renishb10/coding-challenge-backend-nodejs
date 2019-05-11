@@ -32,7 +32,10 @@ const schema = Joi.object().keys({
 
 const validate = (req, res) => {
   return Joi.validate(req.body, schema, (err, value) => {
-    if (err) throw err;
+    if (err) {
+      err.status = 400;
+      throw err;
+    }
     return true;
   });
 };

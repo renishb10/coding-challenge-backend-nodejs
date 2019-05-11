@@ -9,7 +9,7 @@ const {
   createCase,
   createOwner,
 } = require('./controller');
-const { getPoliceByStatus } = require('../polices/controller');
+const { getFreePolice, setPoliceBusyStatus } = require('../polices/controller');
 const validate = require('./validator');
 const { caseStatuses } = require('../../helpers/contants');
 
@@ -32,43 +32,51 @@ router.get('/', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   try {
     if (validate(req, res)) {
-      //Get the owner details
+      // 1) Set and Get the owner & id respectively
       const newOwner = await createOwner(req.body);
 
-      if (!_.isEmpty(newOwner)) {
+      if (!_.isEmpty(newOwner.id)) {
+        // 2) Assign ownerId to the req case object
         req.body.ownerId = newOwner.id;
+
+        // 3) Find free police officer
+        const freePolice = await getFreePolice();
+
+        // 3.1) If any free policemen & assign him case
+        if (
+          !_.isEmpty(freePolice) &&
+          _.isArray(freePolice) &&
+          freePolice.length > 0
+        ) {
+          // 3.2) Pick random police officer and assign him the case
+          const randomPolice =
+            freePolice[Math.floor(Math.random() * freePolice.length)];
+          console.log(9999999999999999999999);
+          console.log(randomPolice);
+          console.log(9999999999999999999999);
+          req.body.policeId = randomPolice.id;
+
+          // 3.3) Make the policemen status to busy
+          await setPoliceBusyStatus(randomPolice.id, true);
+
+          // 3.4) Make the case status to 'inprogress'
+          req.body.statusId = caseStatuses.INPROGRESS;
+        }
+
+        // 4) Now create case
         const newCase = await createCase(req.body);
-        if (_.isEmpty(newCase)) throw Error;
 
-        // Find free police officer
-        const freePolice = await getPoliceByStatus(false);
-        if (_.isEmpty(freePolice)) return res.json(newCase);
+        if (_.isEmpty(newCase)) {
+          console.log('new case created', newCase);
+          // 4.1) Revert police status & revert owner details if needed (as of now No)
+          await setPoliceBusyStatus(randomPolice.id, false);
+          throw new Error(
+            `Couldn't create a case - ${ownerId}: ${JSON.stringify(req.body)}`,
+          );
+        }
 
-        //Pick random police officer and assign him the case
-        const randomPolice =
-          freePolice[Math.floor(Math.random() * freePolice.length)];
-
-        // Update the object
-        newCase
-          .update({
-            policeId: randomPolice.id,
-            status: caseStatuses.INPROGRESS,
-          })
-          .then(data => {
-            randomPolice
-              .update({
-                isBusy: true,
-              })
-              .then(police => {
-                return res.json(data);
-              })
-              .catch(error => {
-                throw error;
-              });
-          })
-          .catch(error => {
-            throw error;
-          });
+        // 5) If all goes well return 200 & case
+        res.json(newCase);
       }
     }
   } catch (e) {

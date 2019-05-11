@@ -4,6 +4,7 @@ const _ = require('lodash');
 
 // Custom dependencies
 const { getAllPolice, createPolice } = require('./controller');
+const { getCasesByStatus } = require('../cases/controller');
 const validate = require('./validator');
 
 ///////////////////////////////////////////////////////////////
