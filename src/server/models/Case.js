@@ -19,28 +19,69 @@ const Case = mySequelize.define(
       allowNull: false,
     },
     stolenObject: {
+      // Stolen object (bike) as of now only bike
       type: Sequelize.STRING(50),
       allowNull: false,
+      validate: {
+        len: {
+          args: [2, 50],
+          msg:
+            'Please provide a StolenObject with at least 2 chars but not more than 50',
+        },
+      },
     },
     licenseNo: {
+      // Vehicle's license number
       type: Sequelize.STRING(50),
       allowNull: false,
+      validate: {
+        len: {
+          args: [2, 50],
+          msg:
+            'Please provide a LicenseNo with at least 2 chars but not more than 50',
+        },
+      },
     },
     color: {
+      // Vehicle's color
       type: Sequelize.STRING(20),
       allowNull: false,
+      validate: {
+        len: {
+          args: [2, 20],
+          msg:
+            'Please provide a Color with at least 2 chars but not more than 20',
+        },
+      },
     },
     type: {
+      // Vehicle's type (Manufacturer + Model + Number) -> this can be seggregated later
       type: Sequelize.STRING(100),
       allowNull: false,
+      validate: {
+        len: {
+          args: [2, 100],
+          msg:
+            'Please provide a Type with at least 2 chars but not more than 100',
+        },
+      },
     },
     date: {
+      // Date stolen
       type: Sequelize.DATE,
       allowNull: false,
     },
     description: {
+      // Something about it
       type: Sequelize.STRING(1200),
       allowNull: false,
+      validate: {
+        len: {
+          args: [5, 1200],
+          msg:
+            'Please provide a Description with at least 5 chars but not more than 1200',
+        },
+      },
     },
     createdAt: {
       type: Sequelize.DATE,

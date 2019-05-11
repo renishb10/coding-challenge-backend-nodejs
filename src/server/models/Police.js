@@ -17,6 +17,7 @@ const Police = mySequelize.define(
       allowNull: false,
     },
     extPoliceId: {
+      // External Police Id, might be alphanumeric
       type: Sequelize.STRING(50),
       unique: true,
       allowNull: false,
@@ -24,7 +25,7 @@ const Police = mySequelize.define(
         len: {
           args: [2, 50],
           msg:
-            'Please provide a Police Id with at least 2 char but not more than 50',
+            'Please provide a Police Id with at least 2 chars but not more than 50',
         },
       },
     },
@@ -35,7 +36,7 @@ const Police = mySequelize.define(
         len: {
           args: [2, 100],
           msg:
-            'Please provide a Firstname with at least 2 char but not more than 100',
+            'Please provide a Firstname with at least 2 chars but not more than 100',
         },
       },
     },
@@ -53,6 +54,13 @@ const Police = mySequelize.define(
     division: {
       type: Sequelize.STRING(50),
       allowNull: false,
+      validate: {
+        len: {
+          args: [1, 50],
+          msg:
+            'Please provide a Division with at least 1 char but not more than 50',
+        },
+      },
     },
     isActive: {
       // This is to active/inactive the police officer
