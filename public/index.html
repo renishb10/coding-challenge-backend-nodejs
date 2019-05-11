@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>Berlin - Stolen Bikes</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+      body,
+      html {
+        height: 100%;
+      }
+
+      a {
+        color: #838f93;
+      }
+
+      .bg {
+        /* The image used */
+        background-image: url('images/bicycle.jpg');
+
+        /* Full height */
+        height: 100%;
+
+        /* Center and scale the image nicely */
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+
+      .stolenbikes-shadow {
+        text-shadow: horizontal-offset vertical-offset blur color;
+        text-shadow: 0px 3px 5px #000;
+        text-shadow: 0px 3px 5px #000, 0px -3px 5px #fff;
+        text-shadow: 0px 3px 5px rgba(20, 20, 20, 0.5);
+      }
+
+      .stolenbike-title {
+        font-size: 70px;
+      }
+
+      .stolenbike-para {
+        font-size: 20px;
+        color: #dbdbdc;
+        text-shadow: 0px 5px 5px #000;
+      }
+
+      /* change the link color and padding  */
+      .navbar-custom .navbar-nav .nav-link {
+        color: rgba(255, 255, 255, 0.5);
+        padding: 0.75rem 1rem;
+      }
+
+      /* change the color and background color of active links */
+      .navbar-custom .nav-item.active .nav-link,
+      .navbar-custom .nav-item:hover .nav-link {
+        color: #ffffff;
+        background-color: #333;
+      }
+    </style>
+  </head>
+
+  <body class="bg">
+    <!-- Navigation -->
+    <nav class="navbar navbar-nav navbar-expand-lg navbar-custom static-top">
+      <div class="container font-weight-light">
+        <a class="navbar-brand" href="#">Berlin Stolen Bikes</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarResponsive"
+          aria-controls="navbarResponsive"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#" onclick="msgToAnton()"
+                >Doc
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" onclick="msgToAnton()">Report </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" onclick="msgToAnton()">Track</a>
+            </li>
+            <li class="nav-item">
+              <a class="btn btn-info mt-1 ml-3" href="#" onclick="msgToAnton()"
+                >Login as Officer</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 mt-4 text-center text-light">
+          <h1
+            class="mt-5 font-weight-light stolenbike-title stolenbikes-shadow"
+          >
+            Berlin Stolen Bikes
+          </h1>
+          <p class="lead stolenbike-para stolenbikes-shadow">
+            Report | Set back & Relax | We'll take care
+          </p>
+          <a
+            class="btn btn-primary btn-lg mr-3 mt-3 font-weight-light"
+            href="/doc"
+            target="_blank"
+            >Documentation</a
+          >
+          <a
+            class="btn btn-success btn-lg mt-3 font-weight-light"
+            href="/api-doc"
+            >API Reference</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // message to Anton Versal
+      function msgToAnton() {
+        alert(
+          ' Hello Anton,\n This is just to mimic the UI :), Big thank you! \n Renish B',
+        );
+      }
+    </script>
+  </body>
+</html>

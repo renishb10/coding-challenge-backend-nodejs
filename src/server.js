@@ -3,6 +3,7 @@
 // Module dependencies
 const express = require('express');
 const bodyParser = require('body-parser');
+const path = require('path');
 const helmet = require('helmet');
 const volleyball = require('volleyball');
 const cors = require('cors');
@@ -34,12 +35,24 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // Routing middlewares
-app.use('/', routes.index);
+// Launch page (Static)
+app.use('/', express.static(path.join(__dirname, 'client')));
+app.use(express.static('public'));
+
+// Swagger Documentation
 app.use(
-  '/swagger',
+  '/api-doc',
   swaggerUi.serve,
   swaggerUi.setup(swaggerDocument, { explorer: true }),
 );
+
+// Coding Challenge Documentation
+app.get('/doc', (req, res) => {
+  var file = __dirname + '/berlin_stolen_bikes.pdf';
+  res.download(file);
+});
+
+// To relevant routes
 app.use(`${config.base_url_path.v1}cases`, routes.cases);
 app.use(`${config.base_url_path.v1}polices`, routes.polices);
 app.use(`${config.base_url_path.v1}statuses`, routes.statuses);
@@ -47,14 +60,14 @@ app.use(`${config.base_url_path.v1}statuses`, routes.statuses);
 // Error middleware
 app.use(errorHandler);
 
-// Initiate DB stuffs and run the server
+// Initiate DB and run the server
 mySequelize
   .sync({
-    // force: true,
+    force: true,
   })
   .then(() => {
-    app.listen(config.port, () => {
-      logger.info(`Listening on port ${config.port}`);
+    app.listen(process.env.PORT || config.port, () => {
+      logger.info(`Listening on port ${process.env.PORT || config.port}`);
     });
   })
   .catch(e => {
