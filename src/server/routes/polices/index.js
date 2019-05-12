@@ -5,6 +5,7 @@ const _ = require('lodash');
 // Custom dependencies
 const {
   getAllPolice,
+  getPoliceById,
   createPolice,
   updatePolice,
   deletePolice,
@@ -25,6 +26,19 @@ router.get('/', async (req, res, next) => {
   try {
     let allPolice = await getAllPolice();
     return res.json(allPolice);
+  } catch (e) {
+    next(e);
+  }
+});
+
+///////////////////////////////////////////////////////////////
+/// GET all polices (with filters)
+///////////////////////////////////////////////////////////////
+router.get('/:policeId', async (req, res, next) => {
+  try {
+    const _policeId = req.params.policeId;
+    let police = await getPoliceById(_policeId);
+    return res.json(police);
   } catch (e) {
     next(e);
   }

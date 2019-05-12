@@ -65,9 +65,9 @@ const setPoliceBusyStatus = async (_policeId, _isBusy) => {
 
 // Get single police officer by id
 const getPoliceById = async _policeId => {
-  return Police.find({
+  return Police.findOne({
     where: {
-      policeId: _policeId,
+      id: _policeId,
     },
   })
     .then(data => {
