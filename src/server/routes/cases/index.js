@@ -5,7 +5,7 @@ const _ = require('lodash');
 // Custom dependencies
 const {
   getAllCases,
-  getAllCaseById,
+  getCaseById,
   createCase,
   updateCase,
   deleteCase,
@@ -24,6 +24,19 @@ router.get('/', async (req, res, next) => {
   try {
     const cases = await getAllCases();
     return res.json(cases);
+  } catch (e) {
+    next(e);
+  }
+});
+
+///////////////////////////////////////////////////////////////
+/// GET a case
+///////////////////////////////////////////////////////////////
+router.get('/:caseId', async (req, res, next) => {
+  try {
+    const _caseId = req.params.caseId;
+    const aCase = await getCaseById(_caseId);
+    return res.json(aCase);
   } catch (e) {
     next(e);
   }

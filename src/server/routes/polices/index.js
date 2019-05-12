@@ -32,7 +32,7 @@ router.get('/', async (req, res, next) => {
 });
 
 ///////////////////////////////////////////////////////////////
-/// GET all polices (with filters)
+/// GET a police officer by Id
 ///////////////////////////////////////////////////////////////
 router.get('/:policeId', async (req, res, next) => {
   try {

@@ -20,7 +20,7 @@ const getAllCases = async () => {
 
 // Get single case by Id
 const getCaseById = async _caseId => {
-  return Case.findAll({
+  return Case.findOne({
     where: {
       id: _caseId,
     },
@@ -53,8 +53,6 @@ const getCasesByStatus = async _statusId => {
 
 // Get a case by policeId
 const getCaseByPolice = async _policeId => {
-  console.log(11111111111111);
-  console.log(_policeId);
   return Case.findOne({
     where: {
       policeId: _policeId,
