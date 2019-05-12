@@ -67,8 +67,9 @@ const createCase = async _caseObj => {
 const updateCase = async (_caseId, _caseObj) => {
   return Case.update(_caseObj, {
     where: { id: _caseId },
+    returning: true,
   })
-    .then(data => {
+    .then(([rowsAffected, [data]]) => {
       return data;
     })
     .catch(error => {
@@ -78,10 +79,15 @@ const updateCase = async (_caseId, _caseObj) => {
 
 // Deletes a case
 const deleteCase = async _caseId => {
-  return Case.destroy({
+  return Case.findOne({
     where: { id: _caseId },
   })
     .then(data => {
+      if (data) {
+        data.destroy({}).catch(error => {
+          throwError(error, errorTypes.DB_VALIDATION);
+        });
+      }
       return data;
     })
     .catch(error => {

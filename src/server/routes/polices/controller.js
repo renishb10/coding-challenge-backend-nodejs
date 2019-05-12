@@ -37,7 +37,7 @@ const getFreePolice = async (_isBusy = false) => {
 
 // Sets the police officer's busy status
 const setPoliceBusyStatus = async (_policeId, _isBusy) => {
-  if (_policeId && _isBusy) {
+  if (_policeId) {
     return Police.findOne({
       where: {
         id: _policeId,
@@ -56,8 +56,11 @@ const setPoliceBusyStatus = async (_policeId, _isBusy) => {
         throwError(error, errorTypes.DB_VALIDATION);
       });
   } else
-    throw new Error(
-      'Err - setPoliceBusyStatus(_policeObj, _isBusy) requires two params',
+    throwError(
+      new Error(
+        'Err - setPoliceBusyStatus(_policeId, _isBusy) requires two params',
+      ),
+      errorTypes.BAD_REQUEST,
     );
 };
 
@@ -133,12 +136,12 @@ const assignPoliceWithCase = async (_policeObj, _caseObj) => {
             statusId: caseStatuses.INPROGRESS,
           })
           .catch(err => {
-            throw err;
+            throwError(err, errorTypes.DB_VALIDATION);
           });
       }
     })
     .catch(err => {
-      throw err;
+      throwError(err, errorTypes.DB_VALIDATION);
     });
 };
 

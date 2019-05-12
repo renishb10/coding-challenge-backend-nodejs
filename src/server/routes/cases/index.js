@@ -14,6 +14,8 @@ const {
 const { getFreePolice, setPoliceBusyStatus } = require('../polices/controller');
 const validate = require('./validator');
 const { caseStatuses } = require('../../helpers/contants');
+const { throwError } = require('../../helpers/errorHandler');
+const { errorTypes } = require('../../helpers/contants');
 
 ///////////////////////////////////////////////////////////////
 /// GET all cases (without filters)
@@ -99,14 +101,56 @@ router.put('/:caseId', async (req, res, next) => {
 });
 
 ///////////////////////////////////////////////////////////////
+/// Resolve a case
+///////////////////////////////////////////////////////////////
+router.patch('/:caseId/resolve', async (req, res, next) => {
+  try {
+    // Validation
+    if (!_.isEmpty(req.params.caseId)) {
+      const modifiedCase = await updateCase(req.params.caseId, {
+        statusId: caseStatuses.RESOLVED,
+      });
+
+      if (_.isEmpty(modifiedCase)) {
+        throwError(
+          new Error('No such case exist in our system'),
+          errorTypes.BAD_REQUEST,
+        );
+      }
+
+      // 1) Check if updatedCase has policemen assigned
+      // We can also check status again. Not needed as of now.
+      if (modifiedCase.policeId !== null) {
+        // 2) Update relevant policemen (set him not busy)
+        await setPoliceBusyStatus(modifiedCase.policeId, false);
+      }
+
+      return res.json(modifiedCase);
+    }
+    res.status(400).send({ message: 'Please check your input' });
+  } catch (e) {
+    next(e);
+  }
+});
+
+///////////////////////////////////////////////////////////////
 /// Delete a case
 ///////////////////////////////////////////////////////////////
 router.delete('/:caseId', async (req, res, next) => {
   try {
     // Validation
     if (!_.isEmpty(req.params.caseId)) {
-      await deleteCase(req.params.caseId);
-      return res.json(req.body);
+      //1) Delete the case & get the object
+      const removedCase = await deleteCase(req.params.caseId);
+
+      // 2) Check if updatedCase has policemen assigned
+      // We can also check status again. Not needed as of now.
+      if (removedCase.policeId !== null) {
+        // 2.1) Update relevant policemen (set him not busy)
+        await setPoliceBusyStatus(removedCase.policeId, false);
+      }
+
+      return res.json(removedCase);
     }
     res.status(400).send({ message: 'Param caseId is missing' });
   } catch (e) {
