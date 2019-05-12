@@ -108,11 +108,17 @@ const updatePolice = async (_policeId, _policeObj) => {
 
 // Deletes a police officer
 const deletePolice = async _policeId => {
-  return Police.destroy({
-    where: { id: _policeId },
+  return Police.findOne({
+    where: {
+      id: _policeId,
+    },
   })
     .then(data => {
-      return data;
+      if (data) {
+        data.destroy({}).catch(error => {
+          throwError(error, errorTypes.DB_VALIDATION);
+        });
+      }
     })
     .catch(error => {
       throwError(error, errorTypes.DB_VALIDATION);

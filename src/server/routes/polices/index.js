@@ -9,7 +9,11 @@ const {
   updatePolice,
   deletePolice,
 } = require('./controller');
-const { getCasesByStatus } = require('../cases/controller');
+const {
+  getCasesByStatus,
+  getCaseByPolice,
+  updateCase,
+} = require('../cases/controller');
 const { caseStatuses } = require('../../helpers/contants');
 const validate = require('./validator');
 
@@ -88,8 +92,20 @@ router.delete('/:policeId', async (req, res, next) => {
   try {
     // Validation
     if (!_.isEmpty(req.params.policeId)) {
+      // 1) Delete the police and get the id (just confirmation)
       const removedPolice = await deletePolice(req.params.policeId);
-      return res.json(req.body);
+
+      if (removedPolice && removedPolice.id) {
+        // 2) Find the relevant case with policeId
+        const caseToReOpen = await getCaseByPolice(removedPolice.id);
+        if (caseToReOpen) {
+          // 2.1) Re-Open the case (we can introduce new status (REOPENED) for history/track, later)
+          await updateCase(caseToReOpen.id, { statusId: caseStatuses.OPEN });
+        }
+      }
+
+      // 3) Return the removedPolice
+      return res.json(removedPolice);
     }
     res.status(400).send({ message: 'Param policeId is missing' });
   } catch (e) {

@@ -51,6 +51,21 @@ const getCasesByStatus = async _statusId => {
     });
 };
 
+// Get a case by policeId
+const getCaseByPolice = async _policeId => {
+  return Case.findOne({
+    where: {
+      policeId: _policeId,
+    },
+  })
+    .then(data => {
+      return data;
+    })
+    .catch(error => {
+      throwError(error, errorTypes.DB_VALIDATION);
+    });
+};
+
 // Creates a case, doesn't assign it to police to adapt Single Responsibility policy.
 const createCase = async _caseObj => {
   _caseObj.id = uuid(); //problem with sequelize default uuid setting.
@@ -113,6 +128,7 @@ module.exports = {
   getAllCases,
   getCaseById,
   getCasesByStatus,
+  getCaseByPolice,
   createCase,
   updateCase,
   deleteCase,
