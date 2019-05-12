@@ -24,6 +24,7 @@ const validate = require('./validator');
 ///////////////////////////////////////////////////////////////
 router.get('/', async (req, res, next) => {
   try {
+    //TODO: Implement pagination support (limit & skip)
     let allPolice = await getAllPolice();
     return res.json(allPolice);
   } catch (e) {

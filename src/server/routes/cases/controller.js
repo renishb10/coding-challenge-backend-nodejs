@@ -1,5 +1,7 @@
 // Dependencies
 const uuid = require('uuid/v4');
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 // Custom dependencies
 const Case = require('../../models/Case');
@@ -7,6 +9,7 @@ const Owner = require('../../models/Owner');
 const Police = require('../../models/Police');
 const { errorTypes } = require('../../helpers/contants');
 const { throwError } = require('../../helpers/errorHandler');
+const { getCaseSearchQuery } = require('../../helpers/queryBuilder');
 
 // Gets all cases includes relevant owner object (No order by)
 const getAllCases = async () => {
@@ -126,6 +129,21 @@ const createOwner = async _ownerObj => {
     });
 };
 
+// Search cases with the given params
+// As of now keyword and status only
+const searchCases = async (_keyword, _statusId) => {
+  return Case.findAll({
+    where: getCaseSearchQuery(_keyword, _statusId),
+    include: [{ model: Owner }, { model: Police, as: 'police' }],
+  })
+    .then(data => {
+      return data;
+    })
+    .catch(error => {
+      throwError(error, errorTypes.DB_VALIDATION);
+    });
+};
+
 // Expose methods
 module.exports = {
   getAllCases,
@@ -136,4 +154,5 @@ module.exports = {
   updateCase,
   deleteCase,
   createOwner,
+  searchCases,
 };

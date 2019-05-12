@@ -10,6 +10,7 @@ const {
   updateCase,
   deleteCase,
   createOwner,
+  searchCases,
 } = require('./controller');
 const { getFreePolice, setPoliceBusyStatus } = require('../polices/controller');
 const validate = require('./validator');
@@ -22,6 +23,7 @@ const { errorTypes } = require('../../helpers/contants');
 ///////////////////////////////////////////////////////////////
 router.get('/', async (req, res, next) => {
   try {
+    //TODO: Implement pagination support (limit & skip)
     const cases = await getAllCases();
     return res.json(cases);
   } catch (e) {
@@ -34,7 +36,9 @@ router.get('/', async (req, res, next) => {
 ///////////////////////////////////////////////////////////////
 router.get('/search', async (req, res, next) => {
   try {
-    const cases = await getAllCases();
+    const { keyword, statusId } = req.query;
+    console.log(keyword, statusId);
+    const cases = await searchCases(keyword, statusId);
     return res.json(cases);
   } catch (e) {
     next(e);
