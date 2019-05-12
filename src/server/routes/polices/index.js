@@ -8,6 +8,7 @@ const {
   createPolice,
   updatePolice,
   deletePolice,
+  assignPoliceWithCase,
 } = require('./controller');
 const {
   getCasesByStatus,
@@ -56,6 +57,9 @@ router.post('/', async (req, res, next) => {
         // 2.2) Assign police with the case
         // 2.3) Update police & update case
         await assignPoliceWithCase(newPolice, pickedCase);
+
+        // 2.4) Bind caseId with Police info
+        newPolice.caseId = pickedCase.id;
       }
 
       // 3) Return new police
@@ -92,12 +96,16 @@ router.delete('/:policeId', async (req, res, next) => {
   try {
     // Validation
     if (!_.isEmpty(req.params.policeId)) {
-      // 1) Delete the police and get the id (just confirmation)
+      // 1) Find the relevant case with policeId
+      const caseToReOpen = await getCaseByPolice(req.params.policeId);
+
+      // 2) Delete the police and get the id (just confirmation)
       const removedPolice = await deletePolice(req.params.policeId);
 
-      if (removedPolice && removedPolice.id) {
-        // 2) Find the relevant case with policeId
-        const caseToReOpen = await getCaseByPolice(removedPolice.id);
+      console.log(removedPolice.dataValues);
+
+      if (removedPolice && !_.isEmpty(removedPolice.dataValues.id)) {
+        console.log(caseToReOpen);
         if (caseToReOpen) {
           // 2.1) Re-Open the case (we can introduce new status (REOPENED) for history/track, later)
           await updateCase(caseToReOpen.id, { statusId: caseStatuses.OPEN });

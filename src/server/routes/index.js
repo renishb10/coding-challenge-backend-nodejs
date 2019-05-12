@@ -2,6 +2,6 @@
 module.exports = {
   index: require('./index.route'),
   cases: require('./cases'),
-  polices: require('./polices'),
+  police: require('./polices'),
   statuses: require('./statuses'),
 };

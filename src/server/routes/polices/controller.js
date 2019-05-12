@@ -119,6 +119,7 @@ const deletePolice = async _policeId => {
           throwError(error, errorTypes.DB_VALIDATION);
         });
       }
+      return data;
     })
     .catch(error => {
       throwError(error, errorTypes.DB_VALIDATION);

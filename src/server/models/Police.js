@@ -4,6 +4,7 @@ const uuid = require('uuid/v4');
 
 // DB Custom instance
 const mySequelize = require('../data/db');
+const Case = require('./Case');
 
 // Sequelize has naming problem (Eg: When given Police the foreign key is PolouseId), so going for police_officer
 const Police = mySequelize.define(
