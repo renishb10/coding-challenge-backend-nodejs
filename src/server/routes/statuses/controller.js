@@ -1,5 +1,7 @@
 const Status = require('../../models/Status');
 const _ = require('lodash');
+const { errorTypes } = require('../../helpers/contants');
+const { throwError } = require('../../helpers/errorHandler');
 
 const createNewStatus = async _statusObj => {
   return Status.create(_statusObj)
@@ -7,8 +9,7 @@ const createNewStatus = async _statusObj => {
       return data;
     })
     .catch(error => {
-      console.log(error.message);
-      throw error;
+      throwError(error, errorTypes.DB_VALIDATION);
     });
 };
 
@@ -18,8 +19,7 @@ const getStatuses = async () => {
       return data;
     })
     .catch(error => {
-      console.log(error.message);
-      throw error;
+      throwError(error, errorTypes.DB_VALIDATION);
     });
 };
 
@@ -37,8 +37,7 @@ const deleteStatus = async _statusId => {
         });
     })
     .catch(error => {
-      console.log(error.message);
-      throw error;
+      throwError(error, errorTypes.DB_VALIDATION);
     });
 };
 
@@ -59,8 +58,7 @@ const updateStatus = async (_statusId, _newStatusObj) => {
         });
     })
     .catch(error => {
-      console.log(error.message);
-      throw error;
+      throwError(error, errorTypes.DB_VALIDATION);
     });
 };
 

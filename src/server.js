@@ -54,7 +54,7 @@ app.get('/doc', (req, res) => {
 
 // To relevant routes
 app.use(`${config.base_url_path.v1}cases`, routes.cases);
-app.use(`${config.base_url_path.v1}polices`, routes.polices);
+app.use(`${config.base_url_path.v1}police`, routes.police);
 app.use(`${config.base_url_path.v1}statuses`, routes.statuses);
 
 // Error middleware
@@ -63,7 +63,8 @@ app.use(errorHandler);
 // Initiate DB and run the server
 mySequelize
   .sync({
-    force: true,
+    // Be cautious, setting true will clean up your db
+    force: false,
   })
   .then(() => {
     app.listen(process.env.PORT || config.port, () => {

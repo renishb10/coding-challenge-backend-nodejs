@@ -1,5 +1,6 @@
 const Joi = require('joi');
 
+// Simple Joi validator, can be extended later
 let today = new Date();
 const schema = Joi.object().keys({
   firstName: Joi.string()
@@ -32,7 +33,10 @@ const schema = Joi.object().keys({
 
 const validate = (req, res) => {
   return Joi.validate(req.body, schema, (err, value) => {
-    if (err) throw err;
+    if (err) {
+      err.status = 400;
+      throw err;
+    }
     return true;
   });
 };

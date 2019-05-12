@@ -10,4 +10,10 @@ module.exports = {
     INPROGRESS: 2,
     RESOLVED: 3,
   },
+  errorTypes: {
+    // As of now I've added required error types
+    BAD_REQUEST: 400,
+    DB_VALIDATION: 422,
+    SERVER_ERROR: 500,
+  },
 };
