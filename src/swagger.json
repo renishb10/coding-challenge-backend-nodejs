@@ -1,78 +1,327 @@
 {
-	"swagger": "2.0",
-	"info": {
-		"version": "1.0.0",
-		"title": "Find By Bike API Service",
-		"description": "API documentation for Find By Bike Service (Coding Challenge)\n"
-	},
-	"host": "localhost:8080",
-	"basePath": "/api/v1",
-	"tags": [
-		{
-			"name": "case",
-			"description": "Everything about case"
-		},
-		{
-			"name": "police",
-			"description": "Everything about police"
-		},
-		{
-			"name": "owner",
-			"description": "Everything about owner"
-		}
-	],
-	"schemes": [
-		"http"
-	],
-	"consumes": [
-		"application/json"
-	],
-	"produces": [
-		"application/json"
-	],
-	"paths": {
-		"/cases": {
-			"get": {
-				"tags": [
-					"case"
-				],
-				"description": "Returns all the cases",
-				"responses": {
-					"200": {
-						"description": "Success"
-					},
-					"default": {
-						"description": "Error"
-					}
-				}
-			}
-		}
-	},
-	"definitions": {
-		"Case": {
-			"type": "object",
-			"properties": {
-				"caseId": {
-					"type": "uuid",
-					"format": "uuid"
-				},
-				"firstName": {
-					"type": "string",
-					"format": "string"
-				},
-				"lastName": {
-					"type": "string",
-					"format": "string"
-				},
-				"bike": {
-					"type": "string",
-					"format": "string"
-				},
-				"etc": {
-					"type": "string",
-					"format": "string"
-				}
-			}
-		}
-	}
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Berlin Stolen Bike API Service",
+    "description": "API documentation for Berlin Stolen Bike API Service (JOIN.COM - Coding Challenge)\n"
+  },
+  "host": "https://stolen-bikes-svc.herokuapp.com",
+  "basePath": "/api/v1",
+  "tags": [
+    {
+      "name": "case",
+      "description": "Handles case reporting, assigning/resolving, searching & CRUD operations"
+    },
+    {
+      "name": "police",
+      "description": "Handles policemen, auto case assigning & CRUD operations"
+    },
+    {
+      "name": "status",
+      "description": "Handles status CRUD operations"
+    }
+  ],
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/cases": {
+      "get": {
+        "tags": ["case"],
+        "description": "GET all cases (without filters)",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      },
+      "post": {
+        "tags": ["case"],
+        "description": "POST a case",
+        "parameters": [
+          {
+            "name": "body",
+            "description": "Case object",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Case"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/cases/search": {
+      "get": {
+        "tags": ["case"],
+        "description": "Search cases (with filters)",
+        "parameters": [
+          {
+            "name": "keyword",
+            "in": "query",
+            "description": "Search keyword (in Type, color, description)",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "statusId",
+            "in": "query",
+            "description": "Case statusId (1:Open, 2: Inprogress, 3: Resolved)",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/cases/:caseId": {
+      "get": {
+        "tags": ["case"],
+        "description": "GET a case by Id",
+        "parameters": [
+          {
+            "name": "caseId",
+            "in": "path",
+            "description": "caseId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Case": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "uuid",
+          "format": "uuid"
+        },
+        "stolenObject": {
+          "type": "string",
+          "format": "string"
+        },
+        "licenseNo": {
+          "type": "string",
+          "format": "string"
+        },
+        "color": {
+          "type": "string",
+          "format": "string"
+        },
+        "type": {
+          "type": "string",
+          "format": "string"
+        },
+        "date": {
+          "type": "string",
+          "format": "date"
+        },
+        "description": {
+          "type": "string",
+          "format": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date"
+        },
+        "ownerId": {
+          "type": "uuid",
+          "format": "uuid"
+        },
+        "statusId": {
+          "type": "number",
+          "format": "number"
+        },
+        "policeId": {
+          "type": "uuid",
+          "format": "uuid"
+        },
+        "owner": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "uuid",
+              "format": "uuid"
+            },
+            "firstName": {
+              "type": "string",
+              "format": "string"
+            },
+            "lastName": {
+              "type": "string",
+              "format": "string"
+            },
+            "createdAt": {
+              "type": "string",
+              "format": "date"
+            },
+            "updatedAt": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        },
+        "police": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "uuid",
+              "format": "uuid"
+            },
+            "extPoliceId": {
+              "type": "string",
+              "format": "string"
+            },
+            "firstName": {
+              "type": "string",
+              "format": "string"
+            },
+            "lastName": {
+              "type": "string",
+              "format": "string"
+            },
+            "division": {
+              "type": "string",
+              "format": "string"
+            },
+            "isActive": {
+              "type": "boolean",
+              "format": "boolean"
+            },
+            "isBusy": {
+              "type": "boolean",
+              "format": "boolean"
+            },
+            "createdAt": {
+              "type": "string",
+              "format": "date"
+            },
+            "updatedAt": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        }
+      }
+    },
+    "Police": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "uuid",
+          "format": "uuid"
+        },
+        "extPoliceId": {
+          "type": "string",
+          "format": "string"
+        },
+        "firstName": {
+          "type": "string",
+          "format": "string"
+        },
+        "lastName": {
+          "type": "string",
+          "format": "string"
+        },
+        "division": {
+          "type": "string",
+          "format": "string"
+        },
+        "isActive": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "isBusy": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    },
+    "Owner": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "uuid",
+          "format": "uuid"
+        },
+        "firstName": {
+          "type": "string",
+          "format": "string"
+        },
+        "lastName": {
+          "type": "string",
+          "format": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    },
+    "Status": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "format": "number"
+        },
+        "name": {
+          "type": "string",
+          "format": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    }
+  }
 }
