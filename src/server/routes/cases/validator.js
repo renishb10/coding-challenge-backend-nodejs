@@ -1,5 +1,6 @@
 const Joi = require('joi');
 
+// Simple Joi validator, can be extended later
 let today = new Date();
 const schema = Joi.object().keys({
   firstName: Joi.string()

@@ -1,6 +1,11 @@
-const Police = require('../../models/Police');
+// Dependencies
 const _ = require('lodash');
 
+// Custom dependencies
+const Police = require('../../models/Police');
+const { caseStatuses } = require('../../helpers/contants');
+
+// Gets all the police (default order)
 const getAllPolice = async () => {
   return Police.findAll()
     .then(data => {
@@ -11,8 +16,8 @@ const getAllPolice = async () => {
     });
 };
 
+// Gets police officers based on busy status (by default false)
 const getFreePolice = async (_isBusy = false) => {
-  console.log(333333333333333333);
   return Police.findAll({
     where: {
       isBusy: _isBusy,
@@ -28,6 +33,7 @@ const getFreePolice = async (_isBusy = false) => {
     });
 };
 
+// Sets the police officer's busy status
 const setPoliceBusyStatus = async (_policeId, _isBusy) => {
   if (_policeId && _isBusy) {
     return Police.findOne({
@@ -53,6 +59,7 @@ const setPoliceBusyStatus = async (_policeId, _isBusy) => {
     );
 };
 
+// Get single police officer by id
 const getPoliceById = async _policeId => {
   return Police.find({
     where: {
@@ -67,11 +74,12 @@ const getPoliceById = async _policeId => {
     });
 };
 
+// Creates a new police officer (TBD - Assigning him case here is not done to adapt Single Responsibility design)
 const createPolice = async _policeObj => {
   return Police.create(_policeObj)
     .then(data => {
       if (data) {
-        // TODO: Assign him with a Case
+        // TODO: Assign him with a Case (TBD)
       }
       return data;
     })
@@ -80,10 +88,66 @@ const createPolice = async _policeObj => {
     });
 };
 
+// Updates police officer with the whole object recieved.
+// TODO: This expects external police Id to be the same. Needs modification
+const updatePolice = async (_policeId, _policeObj) => {
+  return Police.update(_policeObj, {
+    where: { id: _policeId },
+  })
+    .then(data => {
+      return data;
+    })
+    .catch(error => {
+      throw error;
+    });
+};
+
+// Deletes a police officer
+const deletePolice = async _policeId => {
+  return Police.destroy({
+    where: { id: _policeId },
+  })
+    .then(data => {
+      return data;
+    })
+    .catch(error => {
+      throw error;
+    });
+};
+
+// Assign police officer with a case
+// Note: This doesn't validate the current police status
+const assignPoliceWithCase = async (_policeObj, _caseObj) => {
+  return _policeObj
+    .update({
+      isBusy: true,
+    })
+    .then(data => {
+      if (data) {
+        // 2.4) Update case
+        _caseObj
+          .update({
+            policeId: _policeObj.id,
+            statusId: caseStatuses.INPROGRESS,
+          })
+          .catch(err => {
+            throw err;
+          });
+      }
+    })
+    .catch(err => {
+      throw err;
+    });
+};
+
+// Expose all the methods
 module.exports = {
   getAllPolice,
   getPoliceById,
   createPolice,
+  updatePolice,
+  deletePolice,
   getFreePolice,
   setPoliceBusyStatus,
+  assignPoliceWithCase,
 };

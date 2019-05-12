@@ -32,6 +32,7 @@ const getCasesByStatus = async _statusId => {
     where: {
       statusId: _statusId,
     },
+    order: [['createdAt', 'ASC']],
     include: [Owner],
   })
     .then(data => {

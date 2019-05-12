@@ -1,5 +1,6 @@
 const Joi = require('joi');
 
+// Simple Joi validator, can be extended later
 const schema = Joi.object().keys({
   extPoliceId: Joi.string()
     .max(50)
