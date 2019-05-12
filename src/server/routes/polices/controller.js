@@ -4,6 +4,8 @@ const _ = require('lodash');
 // Custom dependencies
 const Police = require('../../models/Police');
 const { caseStatuses } = require('../../helpers/contants');
+const { errorTypes } = require('../../helpers/contants');
+const { throwError } = require('../../helpers/errorHandler');
 
 // Gets all the police (default order)
 const getAllPolice = async () => {
@@ -12,7 +14,7 @@ const getAllPolice = async () => {
       return data;
     })
     .catch(error => {
-      throw error;
+      throwError(error, errorTypes.DB_VALIDATION);
     });
 };
 
@@ -29,7 +31,7 @@ const getFreePolice = async (_isBusy = false) => {
       return data;
     })
     .catch(error => {
-      throw error;
+      throwError(error, errorTypes.DB_VALIDATION);
     });
 };
 
@@ -47,11 +49,11 @@ const setPoliceBusyStatus = async (_policeId, _isBusy) => {
             isBusy: _isBusy,
           })
           .catch(error => {
-            throw error;
+            throwError(error, errorTypes.DB_VALIDATION);
           });
       })
       .catch(error => {
-        throw error;
+        throwError(error, errorTypes.DB_VALIDATION);
       });
   } else
     throw new Error(
@@ -70,7 +72,7 @@ const getPoliceById = async _policeId => {
       return data;
     })
     .catch(error => {
-      throw error;
+      throwError(error, errorTypes.DB_VALIDATION);
     });
 };
 
@@ -84,7 +86,7 @@ const createPolice = async _policeObj => {
       return data;
     })
     .catch(error => {
-      throw error;
+      throwError(error, errorTypes.DB_VALIDATION);
     });
 };
 
@@ -98,7 +100,7 @@ const updatePolice = async (_policeId, _policeObj) => {
       return data;
     })
     .catch(error => {
-      throw error;
+      throwError(error, errorTypes.DB_VALIDATION);
     });
 };
 
@@ -111,7 +113,7 @@ const deletePolice = async _policeId => {
       return data;
     })
     .catch(error => {
-      throw error;
+      throwError(error, errorTypes.DB_VALIDATION);
     });
 };
 

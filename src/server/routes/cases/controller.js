@@ -4,6 +4,8 @@ const uuid = require('uuid/v4');
 // Custom dependencies
 const Case = require('../../models/Case');
 const Owner = require('../../models/Owner');
+const { errorTypes } = require('../../helpers/contants');
+const { throwError } = require('../../helpers/errorHandler');
 
 // Gets all cases includes relevant owner object (No order by)
 const getAllCases = async () => {
@@ -12,7 +14,7 @@ const getAllCases = async () => {
       return data;
     })
     .catch(error => {
-      throw error;
+      throwError(error, errorTypes.DB_VALIDATION);
     });
 };
 
@@ -28,7 +30,7 @@ const getCaseById = async _caseId => {
       return data;
     })
     .catch(error => {
-      throw error;
+      throwError(error, errorTypes.DB_VALIDATION);
     });
 };
 
@@ -45,7 +47,7 @@ const getCasesByStatus = async _statusId => {
       return data;
     })
     .catch(error => {
-      throw error;
+      throwError(error, errorTypes.DB_VALIDATION);
     });
 };
 
@@ -57,7 +59,7 @@ const createCase = async _caseObj => {
       return data;
     })
     .catch(error => {
-      throw error;
+      throwError(error, errorTypes.DB_VALIDATION);
     });
 };
 
@@ -70,7 +72,7 @@ const updateCase = async (_caseId, _caseObj) => {
       return data;
     })
     .catch(error => {
-      throwDBError(error);
+      throwError(error, errorTypes.DB_VALIDATION);
     });
 };
 
@@ -83,14 +85,8 @@ const deleteCase = async _caseId => {
       return data;
     })
     .catch(error => {
-      throw error;
+      throwError(error, errorTypes.DB_VALIDATION);
     });
-};
-
-const throwDBError = _error => {
-  const err = _error;
-  err.status = 422;
-  throw err;
 };
 
 // Creates a owner and returns the whole object
@@ -102,7 +98,7 @@ const createOwner = async _ownerObj => {
       return data.dataValues;
     })
     .catch(error => {
-      throw error;
+      throwError(error, errorTypes.DB_VALIDATION);
     });
 };
 
