@@ -27,7 +27,6 @@ const getFreePolice = async (_isBusy = false) => {
     order: [['createdAt', 'ASC']],
   })
     .then(data => {
-      console.log(data);
       return data;
     })
     .catch(error => {

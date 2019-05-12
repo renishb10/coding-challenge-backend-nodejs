@@ -70,6 +70,9 @@ router.put('/:policeId', async (req, res, next) => {
     // Validation
     if (!_.isEmpty(req.params.policeId) && validate(req, res)) {
       await updatePolice(req.params.policeId, req.body);
+
+      // We can handle case update if the police's status gets updated.
+      // But left this call as it is, to give God-Mode update.
       return res.json(req.body);
     }
     res.status(400).send({ message: 'Please check your input' });
@@ -85,7 +88,7 @@ router.delete('/:policeId', async (req, res, next) => {
   try {
     // Validation
     if (!_.isEmpty(req.params.policeId)) {
-      await deletePolice(req.params.policeId);
+      const removedPolice = await deletePolice(req.params.policeId);
       return res.json(req.body);
     }
     res.status(400).send({ message: 'Param policeId is missing' });
