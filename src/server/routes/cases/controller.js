@@ -1,7 +1,11 @@
-const Case = require('../../models/Case');
-const Owner = require('../../models/Owner');
+// Dependencies
 const uuid = require('uuid/v4');
 
+// Custom dependencies
+const Case = require('../../models/Case');
+const Owner = require('../../models/Owner');
+
+// Gets all cases includes relevant owner object (No order by)
 const getAllCases = async () => {
   return Case.findAll({ include: [Owner] })
     .then(data => {
@@ -12,6 +16,7 @@ const getAllCases = async () => {
     });
 };
 
+// Get single case by Id
 const getCaseById = async _caseId => {
   return Case.findAll({
     where: {
@@ -27,6 +32,7 @@ const getCaseById = async _caseId => {
     });
 };
 
+// Gets cases by status Id (1: Open, 2: Inprogress, 3: Resolved)
 const getCasesByStatus = async _statusId => {
   return Case.findAll({
     where: {
@@ -43,6 +49,7 @@ const getCasesByStatus = async _statusId => {
     });
 };
 
+// Creates a case, doesn't assign it to police to adapt Single Responsibility policy.
 const createCase = async _caseObj => {
   _caseObj.id = uuid(); //problem with sequelize default uuid setting.
   return Case.create(_caseObj)
@@ -54,7 +61,40 @@ const createCase = async _caseObj => {
     });
 };
 
-// This can be moved if owner module is created in future.
+// Update a case
+const updateCase = async (_caseId, _caseObj) => {
+  return Case.update(_caseObj, {
+    where: { id: _caseId },
+  })
+    .then(data => {
+      return data;
+    })
+    .catch(error => {
+      throwDBError(error);
+    });
+};
+
+// Deletes a case
+const deleteCase = async _caseId => {
+  return Case.destroy({
+    where: { id: _caseId },
+  })
+    .then(data => {
+      return data;
+    })
+    .catch(error => {
+      throw error;
+    });
+};
+
+const throwDBError = _error => {
+  const err = _error;
+  err.status = 422;
+  throw err;
+};
+
+// Creates a owner and returns the whole object
+// Note: This can be moved if owner module is created in future.
 const createOwner = async _ownerObj => {
   _ownerObj.id = uuid(); //problem with sequelize default uuid setting.
   return Owner.create(_ownerObj)
@@ -66,10 +106,13 @@ const createOwner = async _ownerObj => {
     });
 };
 
+// Expose methods
 module.exports = {
   getAllCases,
   getCaseById,
   getCasesByStatus,
   createCase,
+  updateCase,
+  deleteCase,
   createOwner,
 };

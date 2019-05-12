@@ -7,6 +7,8 @@ const {
   getAllCases,
   getAllCaseById,
   createCase,
+  updateCase,
+  deleteCase,
   createOwner,
 } = require('./controller');
 const { getFreePolice, setPoliceBusyStatus } = require('../polices/controller');
@@ -14,14 +16,13 @@ const validate = require('./validator');
 const { caseStatuses } = require('../../helpers/contants');
 
 ///////////////////////////////////////////////////////////////
-/// GET all cases (with filters)
+/// GET all cases (without filters)
 ///////////////////////////////////////////////////////////////
 router.get('/', async (req, res, next) => {
   try {
     const cases = await getAllCases();
     return res.json(cases);
   } catch (e) {
-    e.status = 400;
     next(e);
   }
 });
@@ -51,9 +52,6 @@ router.post('/', async (req, res, next) => {
           // 3.2) Pick random police officer and assign him the case
           const randomPolice =
             freePolice[Math.floor(Math.random() * freePolice.length)];
-          console.log(9999999999999999999999);
-          console.log(randomPolice);
-          console.log(9999999999999999999999);
           req.body.policeId = randomPolice.id;
 
           // 3.3) Make the policemen status to busy
@@ -79,6 +77,38 @@ router.post('/', async (req, res, next) => {
         res.json(newCase);
       }
     }
+  } catch (e) {
+    next(e);
+  }
+});
+
+///////////////////////////////////////////////////////////////
+/// Update a case (Whole object can be passed)
+///////////////////////////////////////////////////////////////
+router.put('/:caseId', async (req, res, next) => {
+  try {
+    // Validation
+    if (!_.isEmpty(req.params.caseId)) {
+      await updateCase(req.params.caseId, req.body);
+      return res.json(req.body);
+    }
+    res.status(400).send({ message: 'Please check your input' });
+  } catch (e) {
+    next(e);
+  }
+});
+
+///////////////////////////////////////////////////////////////
+/// Delete a case
+///////////////////////////////////////////////////////////////
+router.delete('/:caseId', async (req, res, next) => {
+  try {
+    // Validation
+    if (!_.isEmpty(req.params.caseId)) {
+      await deleteCase(req.params.caseId);
+      return res.json(req.body);
+    }
+    res.status(400).send({ message: 'Param caseId is missing' });
   } catch (e) {
     next(e);
   }
