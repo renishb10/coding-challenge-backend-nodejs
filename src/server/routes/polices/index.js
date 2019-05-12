@@ -79,8 +79,16 @@ router.put('/:policeId', async (req, res, next) => {
     if (!_.isEmpty(req.params.policeId) && validate(req, res)) {
       await updatePolice(req.params.policeId, req.body);
 
-      // We can handle case update if the police's status gets updated.
-      // But left this call as it is, to give God-Mode update.
+      // Edge case, if we reset policemen status to not busy then case also been reset
+      // if (typeof req.body.isBusy !== 'undefined' && !req.body.isBusy) {
+      //   const policeCase = await getCaseByPolice(req.params.policeId);
+      //   if (policeCase) {
+      //     await updateCase(policeCase.id, {
+      //       statusId: caseStatuses.OPEN,
+      //       policeId: null,
+      //     });
+      //   }
+      // }
       return res.json(req.body);
     }
     res.status(400).send({ message: 'Please check your input' });
