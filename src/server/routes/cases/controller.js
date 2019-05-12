@@ -4,12 +4,15 @@ const uuid = require('uuid/v4');
 // Custom dependencies
 const Case = require('../../models/Case');
 const Owner = require('../../models/Owner');
+const Police = require('../../models/Police');
 const { errorTypes } = require('../../helpers/contants');
 const { throwError } = require('../../helpers/errorHandler');
 
 // Gets all cases includes relevant owner object (No order by)
 const getAllCases = async () => {
-  return Case.findAll({ include: [Owner] })
+  return Case.findAll({
+    include: [{ model: Owner }, { model: Police, as: 'police' }],
+  })
     .then(data => {
       return data;
     })
@@ -24,7 +27,7 @@ const getCaseById = async _caseId => {
     where: {
       id: _caseId,
     },
-    include: [Owner],
+    include: [{ model: Owner }, { model: Police, as: 'police' }],
   })
     .then(data => {
       return data;
@@ -41,7 +44,7 @@ const getCasesByStatus = async _statusId => {
       statusId: _statusId,
     },
     order: [['createdAt', 'ASC']],
-    include: [Owner],
+    include: [{ model: Owner }, { model: Police, as: 'police' }],
   })
     .then(data => {
       return data;
