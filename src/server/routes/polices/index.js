@@ -20,7 +20,7 @@ const { caseStatuses } = require('../../helpers/contants');
 const validate = require('./validator');
 
 ///////////////////////////////////////////////////////////////
-/// GET all polices (with filters)
+/// GET all polices
 ///////////////////////////////////////////////////////////////
 router.get('/', async (req, res, next) => {
   try {

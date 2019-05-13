@@ -29,7 +29,7 @@ app.use(Sentry.Handlers.requestHandler());
 
 // Default middlewares
 app.use(helmet()); // Adds security headers
-app.use(volleyball); // Logs http req/res
+//app.use(volleyball); // Logs http req/res
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
