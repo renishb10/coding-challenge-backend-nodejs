@@ -5,7 +5,7 @@
     "title": "Berlin Stolen Bike API Service",
     "description": "API documentation for Berlin Stolen Bike API Service (JOIN.COM - Coding Challenge)\n"
   },
-  "host": "https://stolen-bikes-svc.herokuapp.com",
+  "host": "stolen-bikes-svc.herokuapp.com",
   "basePath": "/api/v1",
   "tags": [
     {
@@ -113,6 +113,281 @@
             "description": "Error"
           }
         }
+      },
+      "put": {
+        "tags": ["case"],
+        "description": "Update a case (Whole object can be passed)",
+        "parameters": [
+          {
+            "name": "caseId",
+            "in": "path",
+            "description": "caseId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "description": "Case object",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Case"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["case"],
+        "description": "Delete a case",
+        "parameters": [
+          {
+            "name": "caseId",
+            "in": "path",
+            "description": "caseId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/cases/:caseId/resolve": {
+      "patch": {
+        "tags": ["case"],
+        "description": "Resolve a case",
+        "parameters": [
+          {
+            "name": "caseId",
+            "in": "path",
+            "description": "caseId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/police": {
+      "get": {
+        "tags": ["police"],
+        "description": "GET all polices (Without filters)",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      },
+      "post": {
+        "tags": ["police"],
+        "description": "POST a police",
+        "parameters": [
+          {
+            "name": "body",
+            "description": "Police object",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Police"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/police/:policeId": {
+      "get": {
+        "tags": ["police"],
+        "description": "GET a police officer by Id",
+        "parameters": [
+          {
+            "name": "policeId",
+            "in": "path",
+            "description": "policeId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      },
+      "put": {
+        "tags": ["police"],
+        "description": "UPDATE a police",
+        "parameters": [
+          {
+            "name": "policeId",
+            "in": "path",
+            "description": "policeId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "description": "Police object",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Police"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["police"],
+        "description": "Delete a police",
+        "parameters": [
+          {
+            "name": "policeId",
+            "in": "path",
+            "description": "policeId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/statuses": {
+      "get": {
+        "tags": ["status"],
+        "description": "GET all statuses",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      },
+      "post": {
+        "tags": ["status"],
+        "description": "POST a status",
+        "parameters": [
+          {
+            "name": "body",
+            "description": "Status object",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/statuses/:statusId": {
+      "put": {
+        "tags": ["status"],
+        "description": "UPDATE a status",
+        "parameters": [
+          {
+            "name": "statusId",
+            "in": "path",
+            "description": "statusId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "description": "Status object",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["status"],
+        "description": "Delete a status",
+        "parameters": [
+          {
+            "name": "statusId",
+            "in": "path",
+            "description": "statusId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
       }
     }
   },
@@ -120,10 +395,6 @@
     "Case": {
       "type": "object",
       "properties": {
-        "id": {
-          "type": "uuid",
-          "format": "uuid"
-        },
         "stolenObject": {
           "type": "string",
           "format": "string"
@@ -148,101 +419,15 @@
           "type": "string",
           "format": "string"
         },
-        "createdAt": {
-          "type": "string",
-          "format": "date"
-        },
-        "updatedAt": {
-          "type": "string",
-          "format": "date"
-        },
-        "ownerId": {
-          "type": "uuid",
-          "format": "uuid"
-        },
         "statusId": {
           "type": "number",
           "format": "number"
-        },
-        "policeId": {
-          "type": "uuid",
-          "format": "uuid"
-        },
-        "owner": {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "uuid",
-              "format": "uuid"
-            },
-            "firstName": {
-              "type": "string",
-              "format": "string"
-            },
-            "lastName": {
-              "type": "string",
-              "format": "string"
-            },
-            "createdAt": {
-              "type": "string",
-              "format": "date"
-            },
-            "updatedAt": {
-              "type": "string",
-              "format": "date"
-            }
-          }
-        },
-        "police": {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "uuid",
-              "format": "uuid"
-            },
-            "extPoliceId": {
-              "type": "string",
-              "format": "string"
-            },
-            "firstName": {
-              "type": "string",
-              "format": "string"
-            },
-            "lastName": {
-              "type": "string",
-              "format": "string"
-            },
-            "division": {
-              "type": "string",
-              "format": "string"
-            },
-            "isActive": {
-              "type": "boolean",
-              "format": "boolean"
-            },
-            "isBusy": {
-              "type": "boolean",
-              "format": "boolean"
-            },
-            "createdAt": {
-              "type": "string",
-              "format": "date"
-            },
-            "updatedAt": {
-              "type": "string",
-              "format": "date"
-            }
-          }
         }
       }
     },
     "Police": {
       "type": "object",
       "properties": {
-        "id": {
-          "type": "uuid",
-          "format": "uuid"
-        },
         "extPoliceId": {
           "type": "string",
           "format": "string"
@@ -258,32 +443,12 @@
         "division": {
           "type": "string",
           "format": "string"
-        },
-        "isActive": {
-          "type": "boolean",
-          "format": "boolean"
-        },
-        "isBusy": {
-          "type": "boolean",
-          "format": "boolean"
-        },
-        "createdAt": {
-          "type": "string",
-          "format": "date"
-        },
-        "updatedAt": {
-          "type": "string",
-          "format": "date"
         }
       }
     },
     "Owner": {
       "type": "object",
       "properties": {
-        "id": {
-          "type": "uuid",
-          "format": "uuid"
-        },
         "firstName": {
           "type": "string",
           "format": "string"
@@ -291,35 +456,15 @@
         "lastName": {
           "type": "string",
           "format": "string"
-        },
-        "createdAt": {
-          "type": "string",
-          "format": "date"
-        },
-        "updatedAt": {
-          "type": "string",
-          "format": "date"
         }
       }
     },
     "Status": {
       "type": "object",
       "properties": {
-        "id": {
-          "type": "number",
-          "format": "number"
-        },
         "name": {
           "type": "string",
           "format": "string"
-        },
-        "createdAt": {
-          "type": "string",
-          "format": "date"
-        },
-        "updatedAt": {
-          "type": "string",
-          "format": "date"
         }
       }
     }
