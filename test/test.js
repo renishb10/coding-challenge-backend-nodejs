@@ -8,14 +8,16 @@ chai.use(require('chai-http'));
 // Reference to main app
 const app = require('../src/server');
 
-// Cases Endpoint
+//////////////////////////////////////////////////
+// Cases Endpoint (TEST CASES)
+//////////////////////////////////////////////////
 describe('API endpoint /cases', function() {
   let globalCaseId = null;
   // POST a case
   it('should create a Case', function() {
     const caseObj = {
       firstName: 'Test',
-      lastName: 'Data',
+      lastName: 'Owner',
       stolenObject: 'bike',
       licenseNo: '14A 55 CC' + Math.floor(Math.random() * 1000 + 1),
       color: 'light blue',
@@ -81,6 +83,25 @@ describe('API endpoint /cases', function() {
   });
 
   // Resolve a case
+  it('should update a Case', function() {
+    const caseObj = {
+      statusId: 2,
+      type: 'TEST BIKE TYPE',
+    };
+
+    return chai
+      .request(app)
+      .put('/api/v1/cases/' + globalCaseId)
+      .send(caseObj)
+      .then(function(res) {
+        expect(res).to.have.status(200);
+        expect(res).to.be.json;
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('type');
+      });
+  });
+
+  // Resolve a case
   it('should resolve a Case', function() {
     return chai
       .request(app)
@@ -108,19 +129,92 @@ describe('API endpoint /cases', function() {
   });
 });
 
-// Police Endpoint
-describe('API endpoint /polices', function() {
-  // GET - List all Polices
-  it('should return all Polices', function() {
+//////////////////////////////////////////////////
+// Police Endpoint  (TEST CASES)
+//////////////////////////////////////////////////
+describe('API endpoint /police', function() {
+  let globalPoliceId = null;
+
+  // Create a Police
+  it('should create a Police', function() {
+    const policeObj = {
+      extPoliceId: '111 AA ' + Math.floor(Math.random() * 999 + 1),
+      firstName: 'Test',
+      lastName: 'Police',
+      division: 'municipal',
+    };
+
     return chai
       .request(app)
-      .get('/api/v1/polices')
+      .post('/api/v1/police')
+      .send(policeObj)
       .then(function(res) {
         expect(res).to.have.status(200);
         expect(res).to.be.json;
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('id');
+
+        globalPoliceId = res.body.id;
+      });
+  });
+
+  // GET - List all Police
+  it('should return all Police', function() {
+    return chai
+      .request(app)
+      .get('/api/v1/police')
+      .then(function(res) {
+        expect(res).to.have.status(200);
+        expect(res).to.be.json;
+        expect(res.body).to.be.an('array');
         expect(res.body[0]).to.have.property('id');
-        // expect(res.body).to.be.an('object');
-        //expect(res.body.results).to.be.an('array');
+      });
+  });
+
+  // GET a Police
+  it('should return a Police', function() {
+    return chai
+      .request(app)
+      .get('/api/v1/police/' + globalPoliceId)
+      .then(function(res) {
+        expect(res).to.have.status(200);
+        expect(res).to.be.json;
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('id');
+      });
+  });
+
+  // Update a Police
+  it('should update a Police', function() {
+    const policeObj = {
+      extPoliceId: '111 AA ' + Math.floor(Math.random() * 999 + 1),
+      firstName: 'Test 2',
+      lastName: 'Police 2',
+      division: 'corporation',
+    };
+
+    return chai
+      .request(app)
+      .put('/api/v1/police/' + globalPoliceId)
+      .send(policeObj)
+      .then(function(res) {
+        expect(res).to.have.status(200);
+        expect(res).to.be.json;
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('lastName');
+      });
+  });
+
+  // Delete a Police
+  it('should update a Police', function() {
+    return chai
+      .request(app)
+      .delete('/api/v1/police/' + globalPoliceId)
+      .then(function(res) {
+        expect(res).to.have.status(200);
+        expect(res).to.be.json;
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('id');
       });
   });
 });
