@@ -92,7 +92,7 @@
         }
       }
     },
-    "/cases/:caseId": {
+    "/cases/{caseId}": {
       "get": {
         "tags": ["case"],
         "description": "GET a case by Id",
@@ -166,7 +166,7 @@
         }
       }
     },
-    "/cases/:caseId/resolve": {
+    "/cases/{caseId}/resolve": {
       "patch": {
         "tags": ["case"],
         "description": "Resolve a case",
@@ -226,7 +226,7 @@
         }
       }
     },
-    "/police/:policeId": {
+    "/police/{policeId}": {
       "get": {
         "tags": ["police"],
         "description": "GET a police officer by Id",
@@ -337,7 +337,7 @@
         }
       }
     },
-    "/statuses/:statusId": {
+    "/statuses/{statusId}": {
       "put": {
         "tags": ["status"],
         "description": "UPDATE a status",
