@@ -21,7 +21,7 @@
       "description": "Handles status CRUD operations"
     }
   ],
-  "schemes": ["http"],
+  "schemes": ["https"],
   "consumes": ["application/json"],
   "produces": ["application/json"],
   "paths": {
