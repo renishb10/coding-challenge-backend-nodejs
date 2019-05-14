@@ -418,10 +418,6 @@
         "description": {
           "type": "string",
           "format": "string"
-        },
-        "statusId": {
-          "type": "number",
-          "format": "number"
         }
       }
     },
