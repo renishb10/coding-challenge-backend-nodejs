@@ -21,7 +21,7 @@
       "description": "Handles status CRUD operations"
     }
   ],
-  "schemes": ["http"],
+  "schemes": ["https"],
   "consumes": ["application/json"],
   "produces": ["application/json"],
   "paths": {
@@ -92,7 +92,7 @@
         }
       }
     },
-    "/cases/:caseId": {
+    "/cases/{caseId}": {
       "get": {
         "tags": ["case"],
         "description": "GET a case by Id",
@@ -166,7 +166,7 @@
         }
       }
     },
-    "/cases/:caseId/resolve": {
+    "/cases/{caseId}/resolve": {
       "patch": {
         "tags": ["case"],
         "description": "Resolve a case",
@@ -226,7 +226,7 @@
         }
       }
     },
-    "/police/:policeId": {
+    "/police/{policeId}": {
       "get": {
         "tags": ["police"],
         "description": "GET a police officer by Id",
@@ -337,7 +337,7 @@
         }
       }
     },
-    "/statuses/:statusId": {
+    "/statuses/{statusId}": {
       "put": {
         "tags": ["status"],
         "description": "UPDATE a status",
@@ -399,6 +399,14 @@
           "type": "string",
           "format": "string"
         },
+        "firstName": {
+          "type": "string",
+          "format": "string"
+        },
+        "lastName": {
+          "type": "string",
+          "format": "string"
+        },
         "licenseNo": {
           "type": "string",
           "format": "string"
@@ -418,10 +426,6 @@
         "description": {
           "type": "string",
           "format": "string"
-        },
-        "statusId": {
-          "type": "number",
-          "format": "number"
         }
       }
     },
