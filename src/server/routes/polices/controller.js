@@ -1,4 +1,5 @@
 // Dependencies
+const uuid = require('uuid/v4');
 const _ = require('lodash');
 
 // Custom dependencies
@@ -80,6 +81,7 @@ const getPoliceById = async _policeId => {
 
 // Creates a new police officer (TBD - Assigning him case here is not done to adapt Single Responsibility design)
 const createPolice = async _policeObj => {
+  _policeObj.id = uuid(); //problem with sequelize default uuid setting.
   return Police.create(_policeObj)
     .then(data => {
       if (data) {
