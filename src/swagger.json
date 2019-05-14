@@ -399,6 +399,14 @@
           "type": "string",
           "format": "string"
         },
+        "firstName": {
+          "type": "string",
+          "format": "string"
+        },
+        "lastName": {
+          "type": "string",
+          "format": "string"
+        },
         "licenseNo": {
           "type": "string",
           "format": "string"
