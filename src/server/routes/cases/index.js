@@ -37,7 +37,6 @@ router.get('/', async (req, res, next) => {
 router.get('/search', async (req, res, next) => {
   try {
     const { keyword, statusId } = req.query;
-    console.log(keyword, statusId);
     const cases = await searchCases(keyword, statusId);
     return res.json(cases);
   } catch (e) {
@@ -96,7 +95,6 @@ router.post('/', async (req, res, next) => {
         const newCase = await createCase(req.body);
 
         if (_.isEmpty(newCase)) {
-          console.log('new case created', newCase);
           // 4.1) Revert police status & revert owner details if needed (as of now No)
           await setPoliceBusyStatus(randomPolice.id, false);
           throw new Error(

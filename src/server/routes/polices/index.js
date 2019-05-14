@@ -125,10 +125,7 @@ router.delete('/:policeId', async (req, res, next) => {
       // 2) Delete the police and get the id (just confirmation)
       const removedPolice = await deletePolice(req.params.policeId);
 
-      console.log(removedPolice.dataValues);
-
       if (removedPolice && !_.isEmpty(removedPolice.dataValues.id)) {
-        console.log(caseToReOpen);
         if (caseToReOpen) {
           // 2.1) Re-Open the case (we can introduce new status (REOPENED) for history/track, later)
           await updateCase(caseToReOpen.id, { statusId: caseStatuses.OPEN });

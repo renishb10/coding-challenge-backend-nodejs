@@ -43,7 +43,6 @@ router.post('/', async (req, res, next) => {
 router.put('/:id', async (req, res, next) => {
   try {
     const _statusId = req.params.id;
-    console.log(_statusId);
     if (_.isEmpty(_statusId) || _.isEmpty(req.body))
       res.status(400).send({ message: 'No status id or body' });
 
